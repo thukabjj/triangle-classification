@@ -1,6 +1,5 @@
-package com.triangle.classification.infrastructure.exception;
+package com.triangle.classification.application.entrypoint.exception;
 
-import java.util.List;
 import java.util.Map;
 
 public class ErrorResponse {
