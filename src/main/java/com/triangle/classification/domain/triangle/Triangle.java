@@ -12,7 +12,11 @@ public class Triangle {
 
     public Triangle() {
     }
-
+    public Triangle(BigDecimal sideA, BigDecimal sideB, BigDecimal sideC) {
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.sideC = sideC;
+    }
     public Triangle(Long id, BigDecimal sideA, BigDecimal sideB, BigDecimal sideC, TriangleType type) {
         this.id = id;
         this.sideA = sideA;
