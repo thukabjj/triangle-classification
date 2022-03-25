@@ -1,4 +1,4 @@
-package com.triangle.classification.usercase.exception;
+package com.triangle.classification.usercase.authentication.exception;
 
 public class InvalidCredentialsException extends RuntimeException {
 

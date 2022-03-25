@@ -1,7 +1,7 @@
 package com.triangle.classification.usercase.authentication;
 
 import com.triangle.classification.usercase.authentication.entity.JwtResponse;
-import com.triangle.classification.usercase.exception.InvalidCredentialsException;
+import com.triangle.classification.usercase.authentication.exception.InvalidCredentialsException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

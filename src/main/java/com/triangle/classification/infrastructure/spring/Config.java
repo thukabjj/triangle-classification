@@ -4,6 +4,7 @@ import com.triangle.classification.application.mapper.triangle.TriangleMapper;
 import com.triangle.classification.application.mapper.triangle.TriangleMapperImpl;
 import com.triangle.classification.usercase.authentication.AuthenticateService;
 import com.triangle.classification.usercase.authentication.AuthenticationUserCaseImpl;
+import com.triangle.classification.usercase.gateway.repository.TriangleRepository;
 import com.triangle.classification.usercase.triangle.TriangleCalculateType;
 import com.triangle.classification.usercase.triangle.TriangleCalculateTypeUserCase;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,9 @@ public class Config {
     }
 
     @Bean
-    public TriangleCalculateType injectTriangleCalculateType () {return new TriangleCalculateTypeUserCase();}
+    public TriangleCalculateType injectTriangleCalculateType (TriangleRepository triangleRepository) {
+        return new TriangleCalculateTypeUserCase(triangleRepository);
+    }
 
     @Bean
     public AuthenticationUserCaseImpl injectAuthenticationUserCase(AuthenticateService authenticateService) {return new AuthenticationUserCaseImpl(authenticateService); }

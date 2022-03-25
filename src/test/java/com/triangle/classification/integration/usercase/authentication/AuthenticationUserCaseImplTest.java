@@ -3,7 +3,7 @@ package com.triangle.classification.integration.usercase.authentication;
 import com.triangle.classification.usercase.authentication.AuthenticateService;
 import com.triangle.classification.usercase.authentication.AuthenticationUserCaseImpl;
 import com.triangle.classification.usercase.authentication.entity.JwtResponse;
-import com.triangle.classification.usercase.exception.InvalidCredentialsException;
+import com.triangle.classification.usercase.authentication.exception.InvalidCredentialsException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
