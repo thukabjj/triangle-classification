@@ -10,16 +10,22 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 apply plugin: 'java'
-
+apply plugin: 'jacoco'
 
 dependencies {
-	implementation 'io.springfox:springfox-data-rest:3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation  'io.springfox:springfox-boot-starter:3.0.0'
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 	'io.jsonwebtoken:jjwt-api:0.11.2'
+
+	runtimeOnly 	'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly		'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation		'org.apache.commons:commons-lang3:3.0'
 
 	testImplementation 'org.jacoco:org.jacoco.core:0.8.7'
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
 
@@ -37,20 +43,46 @@ jacoco {
 	reportsDirectory = layout.buildDirectory.dir("$buildDir/jacoco")
 }
 
+def jacocoExclusions = [
+		'**/*ClassificationApplication.class',
+		'**/infrastructure/**',
+		'**/entrypoint/exception**',
+		'**/entrypoint/*/entity**',
+];
 
 
 jacocoTestReport {
+	dependsOn test
 	reports {
 		xml.required = false
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir('jacoco')
 	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: jacocoExclusions
+			)
+		}))
+	}
 	finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
+
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: jacocoExclusions
+			)
+		}))
+	}
 	violationRules {
 		rule {
+			excludes  = jacocoExclusions
 			limit {
 				minimum = 0.5
 			}
@@ -59,14 +91,16 @@ jacocoTestCoverageVerification {
 		rule {
 			enabled = true
 			element = 'CLASS'
+			excludes  = jacocoExclusions
 
 			limit {
 				counter = 'BRANCH'
 				value = 'COVEREDRATIO'
-				minimum = 0.90
+				minimum = 0.9
 			}
 		}
 	}
+
 }
 
 

@@ -1,4 +1,4 @@
-package com.triangle.classification.application.entrypoint.exception;
+package com.triangle.classification.infrastructure.exception.entity;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ public class ErrorResponse {
     private int code;
     private String status;
 
-    public ErrorResponse(){}
+
 
     public ErrorResponse(Map<String, String> details, int code, String status) {
 
@@ -19,12 +19,7 @@ public class ErrorResponse {
     public Map<String, String> getDetails() {
         return details;
     }
-    public int getCode() {
-        return code;
-    }
-    public String getStatus() {
-        return status;
-    }
+
 
 
 }

@@ -1,4 +1,4 @@
-package com.triangle.classification.application.entrypoint.mapper.triangle;
+package com.triangle.classification.application.mapper.triangle;
 
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleEntrypointRequest;
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleEntrypointResponse;
@@ -9,10 +9,7 @@ public class TriangleMapperImpl implements TriangleMapper {
 
     @Override
     public Triangle toTriangleDomain(TriangleEntrypointRequest request) {
-        final Triangle triangle = new Triangle();
-        triangle.setSideA(request.sideA());
-        triangle.setSideB(request.sideB());
-        triangle.setSideC(request.sideC());
+        final Triangle triangle = new Triangle(request.sideA(),request.sideB(),request.sideC());
         return triangle;
     }
 

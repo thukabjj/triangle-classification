@@ -1,4 +1,4 @@
-package com.triangle.classification.application.entrypoint.mapper.triangle;
+package com.triangle.classification.application.mapper.triangle;
 
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleEntrypointRequest;
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleEntrypointResponse;
