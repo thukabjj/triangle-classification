@@ -49,6 +49,7 @@ jacoco {
 def jacocoExclusions = [
 		'**/*ClassificationApplication.class',
 		'**/infrastructure/**',
+		'**/application/database/**',
 		'**/entrypoint/exception**',
 		'**/entrypoint/*/entity**',
 ];
@@ -110,5 +111,3 @@ jacocoTestCoverageVerification {
 repositories {
 	mavenCentral()
 }
-
-

@@ -83,7 +83,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setHeader("content-type", "application/json");
         final ErrorResponse errorResponse = new ErrorResponse(
-                Map.of("message", "user not authorized"),
+                Map.of("message", "User not authorized!"),
                 HttpStatus.FORBIDDEN.value(),
                 HttpStatus.FORBIDDEN.getReasonPhrase());
         String responseMsg = OBJECTMAPPER.writeValueAsString(errorResponse );

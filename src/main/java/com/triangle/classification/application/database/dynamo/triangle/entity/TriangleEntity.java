@@ -14,6 +14,16 @@ public class TriangleEntity {
     private String sideC;
     private String type;
 
+    public TriangleEntity () {}
+
+    public TriangleEntity(String id, String sideA, String sideB, String sideC, String type) {
+        this.id = id;
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.sideC = sideC;
+        this.type = type;
+    }
+
     public TriangleEntity(String sideA, String sideB, String sideC, String type) {
         this.sideA = sideA;
         this.sideB = sideB;

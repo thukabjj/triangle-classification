@@ -5,8 +5,10 @@ import com.triangle.classification.application.mapper.triangle.TriangleMapperImp
 import com.triangle.classification.usercase.authentication.AuthenticateService;
 import com.triangle.classification.usercase.authentication.AuthenticationUserCaseImpl;
 import com.triangle.classification.usercase.gateway.repository.TriangleRepository;
-import com.triangle.classification.usercase.triangle.TriangleCalculateType;
-import com.triangle.classification.usercase.triangle.TriangleCalculateTypeUserCase;
+import com.triangle.classification.usercase.triangle.classifier.TriangleTypeClassifierUserCase;
+import com.triangle.classification.usercase.triangle.classifier.TriangleTypeClassifierUserCaseImpl;
+import com.triangle.classification.usercase.triangle.history.TriangleHistoryUserCase;
+import com.triangle.classification.usercase.triangle.history.TriangleHistoryUserCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,8 +21,13 @@ public class Config {
     }
 
     @Bean
-    public TriangleCalculateType injectTriangleCalculateType (TriangleRepository triangleRepository) {
-        return new TriangleCalculateTypeUserCase(triangleRepository);
+    public TriangleTypeClassifierUserCase injectTriangleCalculateType (TriangleRepository triangleRepository) {
+        return new TriangleTypeClassifierUserCaseImpl(triangleRepository);
+    }
+
+    @Bean
+    public TriangleHistoryUserCase injectTriangleHistory(TriangleRepository triangleRepository){
+        return new TriangleHistoryUserCaseImpl(triangleRepository);
     }
 
     @Bean

@@ -23,6 +23,11 @@ public class Triangle {
         this.sideA = sideA;
         this.sideB = sideB;
         this.sideC = sideC;
+        this.type = identifyTriangleType();
+    }
+
+    public String getId() {
+        return id;
     }
 
 
@@ -44,5 +49,15 @@ public class Triangle {
 
     public void setType(TriangleType type) {
         this.type = type;
+    }
+
+    private TriangleType identifyTriangleType() {
+        if (this.sideA.equals(this.sideB) && this.sideA.equals(this.sideC)){
+            return TriangleType.EQUILATERAL;
+        }
+        if (this.sideA.equals(this.sideB) ||this.sideB.equals(this.sideC) || this.sideC.equals(this.sideA)) {
+            return TriangleType.ISOSCELES;
+        }
+        return TriangleType.SCALENE;
     }
 }

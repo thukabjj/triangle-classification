@@ -1,4 +1,4 @@
-package com.triangle.classification.unit.application.entrypoint.mapper;
+package com.triangle.classification.unit.application.mapper;
 
 import com.triangle.classification.application.mapper.triangle.TriangleMapperImpl;
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleEntrypointRequest;
@@ -23,7 +23,7 @@ public class TriangleMapperImplTest {
     public void should_mapper_from_triangle_entity_to_domain() {
         Triangle expectedTriangle = new Triangle(BigDecimal.ONE,BigDecimal.ONE,BigDecimal.ONE);
         TriangleEntrypointRequest request = new TriangleEntrypointRequest(BigDecimal.ONE,BigDecimal.ONE,BigDecimal.ONE);
-        final Triangle triangle = triangleMapper.toTriangleDomain(request);
+        final Triangle triangle = triangleMapper.fromTriangleEntrypointRequestToTriangleDomain(request);
         Assertions.assertThat(triangle).usingRecursiveComparison()
                 .isEqualTo(expectedTriangle);
     }
@@ -31,7 +31,7 @@ public class TriangleMapperImplTest {
     @Test
     public void should_mapper_from_triangle_domain_to_entity() {
         TriangleEntrypointResponse expected = new TriangleEntrypointResponse(TriangleType.EQUILATERAL.getType());
-        final TriangleEntrypointResponse response = triangleMapper.fromTriangleDomainToResponse(TriangleType.EQUILATERAL);
+        final TriangleEntrypointResponse response = triangleMapper.fromTriangleDomainToTriangleEntrypointResponse(TriangleType.EQUILATERAL);
         Assertions.assertThat(response).isEqualTo(expected);
     }
 }
