@@ -11,14 +11,15 @@ Running DynamoDB on localstack
  docker-compose -f docker-compose-dynamodb.yml up
 
 ```
-Stop deleting the volume:
-```
- docker-compose -f docker-compose-dynamodb.yml down -v
-```
 
 Running Spring Application
 ```
 ./gradlew bootRun
+```
+
+Stop deleting the volume:
+```
+ docker-compose -f docker-compose-dynamodb.yml down -v
 ```
 
 ## Document API
