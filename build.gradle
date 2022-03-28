@@ -1,0 +1,113 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'com.triangle'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation  'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 	'io.jsonwebtoken:jjwt-api:0.11.2'
+
+
+	implementation group: 'com.github.derjust', name: 'spring-data-dynamodb', version: '5.1.0'
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.12.42'
+
+	runtimeOnly 	'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly		'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation		'org.apache.commons:commons-lang3:3.0'
+
+	testImplementation 'org.jacoco:org.jacoco.core:0.8.7'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+tasks.named('test') {
+	jacoco {
+		destinationFile = file("$buildDir/jacoco/jacoco.exec")
+	}
+	useJUnitPlatform()
+	finalizedBy 'jacocoTestReport'
+}
+
+
+jacoco {
+	toolVersion = "0.8.7"
+	reportsDirectory = layout.buildDirectory.dir("$buildDir/jacoco")
+}
+
+def jacocoExclusions = [
+		'**/*ClassificationApplication.class',
+		'**/infrastructure/**',
+		'**/application/database/**',
+		'**/entrypoint/exception**',
+		'**/entrypoint/*/entity**',
+];
+
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacoco')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: jacocoExclusions
+			)
+		}))
+	}
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: jacocoExclusions
+			)
+		}))
+	}
+	violationRules {
+		rule {
+			excludes  = jacocoExclusions
+			limit {
+				minimum = 0.5
+			}
+		}
+
+		rule {
+			enabled = true
+			element = 'CLASS'
+			excludes  = jacocoExclusions
+
+			limit {
+				counter = 'BRANCH'
+				value = 'COVEREDRATIO'
+				minimum = 0.9
+			}
+		}
+	}
+
+}
+
+
+repositories {
+	mavenCentral()
+}
