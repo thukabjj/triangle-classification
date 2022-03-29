@@ -5,8 +5,8 @@ import com.triangle.classification.application.entrypoint.triangle.entity.Triang
 import com.triangle.classification.application.entrypoint.triangle.entity.TriangleHistoryEntrypointResponse;
 import com.triangle.classification.application.mapper.triangle.TriangleMapper;
 import com.triangle.classification.domain.triangle.Triangle;
-import com.triangle.classification.usercase.triangle.classifier.TriangleTypeClassifierUserCase;
-import com.triangle.classification.usercase.triangle.history.TriangleHistoryUserCase;
+import com.triangle.classification.usecase.triangle.classifier.TriangleTypeClassifierUseCase;
+import com.triangle.classification.usecase.triangle.history.TriangleHistoryUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,13 +21,13 @@ import java.util.List;
 @RequestMapping("/api/triangle")
 public class TriangleEntrypoint {
 
-    private final TriangleTypeClassifierUserCase triangleTypeClassifierUserCase;
-    private final TriangleHistoryUserCase triangleHistoryUserCase;
+    private final TriangleTypeClassifierUseCase triangleTypeClassifierUseCase;
+    private final TriangleHistoryUseCase triangleHistoryUseCase;
     private final TriangleMapper triangleMapper;
 
-    public TriangleEntrypoint(TriangleTypeClassifierUserCase triangleCalculateType, TriangleHistoryUserCase triangleHistoryUserCase, TriangleMapper triangleMapper) {
-        this.triangleTypeClassifierUserCase = triangleCalculateType;
-        this.triangleHistoryUserCase = triangleHistoryUserCase;
+    public TriangleEntrypoint(TriangleTypeClassifierUseCase triangleCalculateType, TriangleHistoryUseCase triangleHistoryUseCase, TriangleMapper triangleMapper) {
+        this.triangleTypeClassifierUseCase = triangleCalculateType;
+        this.triangleHistoryUseCase = triangleHistoryUseCase;
         this.triangleMapper = triangleMapper;
     }
 
@@ -39,7 +39,7 @@ public class TriangleEntrypoint {
             @ApiResponse(responseCode = "403", description = "User not authorized!")
     })
     public ResponseEntity<TriangleEntrypointResponse> typeIdentifier(@RequestBody @Validated TriangleEntrypointRequest request){
-        var triangleType = triangleTypeClassifierUserCase.execute(triangleMapper.fromTriangleEntrypointRequestToTriangleDomain(request));
+        var triangleType = triangleTypeClassifierUseCase.execute(triangleMapper.fromTriangleEntrypointRequestToTriangleDomain(request));
         var response = triangleMapper.fromTriangleDomainToTriangleEntrypointResponse(triangleType);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -51,7 +51,7 @@ public class TriangleEntrypoint {
             @ApiResponse(responseCode = "403", description = "User not authorized!")
     })
     public ResponseEntity<List<TriangleHistoryEntrypointResponse>> getHistory(){
-        final List<Triangle> triangles = triangleHistoryUserCase.execute();
+        final List<Triangle> triangles = triangleHistoryUseCase.execute();
         final List<TriangleHistoryEntrypointResponse> response = triangleMapper.fromTrianglesToTriangleHistoryEntrypointResponse(triangles);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

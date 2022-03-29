@@ -2,13 +2,13 @@ package com.triangle.classification.infrastructure.spring;
 
 import com.triangle.classification.application.mapper.triangle.TriangleMapper;
 import com.triangle.classification.application.mapper.triangle.TriangleMapperImpl;
-import com.triangle.classification.usercase.authentication.AuthenticateService;
-import com.triangle.classification.usercase.authentication.AuthenticationUserCaseImpl;
-import com.triangle.classification.usercase.gateway.repository.TriangleRepository;
-import com.triangle.classification.usercase.triangle.classifier.TriangleTypeClassifierUserCase;
-import com.triangle.classification.usercase.triangle.classifier.TriangleTypeClassifierUserCaseImpl;
-import com.triangle.classification.usercase.triangle.history.TriangleHistoryUserCase;
-import com.triangle.classification.usercase.triangle.history.TriangleHistoryUserCaseImpl;
+import com.triangle.classification.usecase.authentication.AuthenticateService;
+import com.triangle.classification.usecase.authentication.AuthenticationUseCaseImpl;
+import com.triangle.classification.usecase.gateway.repository.TriangleRepository;
+import com.triangle.classification.usecase.triangle.classifier.TriangleTypeClassifierUseCase;
+import com.triangle.classification.usecase.triangle.classifier.TriangleTypeClassifierUseCaseImpl;
+import com.triangle.classification.usecase.triangle.history.TriangleHistoryUseCase;
+import com.triangle.classification.usecase.triangle.history.TriangleHistoryUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,15 +21,15 @@ public class Config {
     }
 
     @Bean
-    public TriangleTypeClassifierUserCase injectTriangleCalculateType (TriangleRepository triangleRepository) {
-        return new TriangleTypeClassifierUserCaseImpl(triangleRepository);
+    public TriangleTypeClassifierUseCase injectTriangleCalculateType (TriangleRepository triangleRepository) {
+        return new TriangleTypeClassifierUseCaseImpl(triangleRepository);
     }
 
     @Bean
-    public TriangleHistoryUserCase injectTriangleHistory(TriangleRepository triangleRepository){
-        return new TriangleHistoryUserCaseImpl(triangleRepository);
+    public TriangleHistoryUseCase injectTriangleHistory(TriangleRepository triangleRepository){
+        return new TriangleHistoryUseCaseImpl(triangleRepository);
     }
 
     @Bean
-    public AuthenticationUserCaseImpl injectAuthenticationUserCase(AuthenticateService authenticateService) {return new AuthenticationUserCaseImpl(authenticateService); }
+    public AuthenticationUseCaseImpl injectAuthenticationUserCase(AuthenticateService authenticateService) {return new AuthenticationUseCaseImpl(authenticateService); }
 }

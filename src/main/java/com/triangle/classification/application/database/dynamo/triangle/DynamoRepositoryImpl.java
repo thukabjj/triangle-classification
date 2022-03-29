@@ -3,7 +3,7 @@ package com.triangle.classification.application.database.dynamo.triangle;
 import com.triangle.classification.application.database.dynamo.triangle.entity.TriangleEntity;
 import com.triangle.classification.application.mapper.triangle.TriangleMapper;
 import com.triangle.classification.domain.triangle.Triangle;
-import com.triangle.classification.usercase.gateway.repository.TriangleRepository;
+import com.triangle.classification.usecase.gateway.repository.TriangleRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

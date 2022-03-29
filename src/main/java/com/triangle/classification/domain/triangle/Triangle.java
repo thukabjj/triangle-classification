@@ -47,10 +47,6 @@ public class Triangle {
         return type;
     }
 
-    public void setType(TriangleType type) {
-        this.type = type;
-    }
-
     private TriangleType identifyTriangleType() {
         if (this.sideA.equals(this.sideB) && this.sideA.equals(this.sideC)){
             return TriangleType.EQUILATERAL;
