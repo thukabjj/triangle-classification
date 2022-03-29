@@ -1,6 +1,6 @@
 package com.triangle.classification.infrastructure.exception;
 
-import com.triangle.classification.usercase.authentication.exception.InvalidCredentialsException;
+import com.triangle.classification.usecase.authentication.exception.InvalidCredentialsException;
 import com.triangle.classification.infrastructure.exception.entity.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

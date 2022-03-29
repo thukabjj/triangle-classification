@@ -1,8 +1,8 @@
 package com.triangle.classification.infrastructure.jwt;
 
-import com.triangle.classification.usercase.authentication.AuthenticateService;
-import com.triangle.classification.usercase.authentication.entity.JwtResponse;
-import com.triangle.classification.usercase.authentication.entity.JwtType;
+import com.triangle.classification.usecase.authentication.AuthenticateService;
+import com.triangle.classification.usecase.authentication.entity.JwtResponse;
+import com.triangle.classification.usecase.authentication.entity.JwtType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
