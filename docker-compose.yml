@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  localstack:
+      image: localstack/localstack:latest
+      environment:
+        - DEBUG=1
+        - USE_SSL=0
+        - AWS_CBOR_DISABLE=1
+        - DOCKER_HOST=unix:///var/run/docker.sock
+        - HOSTNAME=localstack
+        - SERVICES=dynamodb
+        - AWS_DEFAULT_REGION=us-east-1
+      ports:
+        - '4566-4583:4566-4583'
+      
+      volumes:
+        - ${TEMPDIR:-/tmp/localstack}:/tmp/localstack
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./init-dynamodb.sh:/docker-entrypoint-initaws.d/init-dynamodb.sh
+      restart: always
+      networks:
+            spring-cloud-network:
+              aliases: 
+                - localstack-container
+
+  triangle-classification-app:
+    build: .
+    depends_on:
+      - localstack
+    links:
+      - localstack:localstack
+    ports:
+      - 8080:8080
+    expose:
+      - "8080"
+    environment:
+      # - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_AWS_DYNAMODB_URL=http://localstack:4566
+    healthcheck:
+      test: [ "CMD","http://localhost:8080/" ]
+    networks:
+      spring-cloud-network:
+        aliases: 
+          - spring-boot-docker-container
+networks:
+    spring-cloud-network:
